@@ -61,6 +61,8 @@
 #define GPIO_BCR            (GPIO_BASE + 0x0014)    // Port reset register
 #define GPIO_LCKR           (GPIO_BASE + 0x0018)    // Port configuration lock register
 
+// By laying the GPIO pins this way we can do pin % 8 to find out its number between 0-7
+// And by doing pin / 8 we get the GPIO bank it's part of, between 0-3
 #define PD7             (31)
 #define PD6             (30)
 #define PD5             (29)
