@@ -1,5 +1,5 @@
 
-#include "debug.h"
+#include <tiny_hal/debug.h>
 
 
 void enable_mco_output(){

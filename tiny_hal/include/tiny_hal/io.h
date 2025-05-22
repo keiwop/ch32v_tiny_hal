@@ -3,7 +3,7 @@
 #define 	__IO__
 
 #include <stdint.h>
-#include "registers.h"
+#include <tiny_hal/registers.h>
 
 
 #define reg_ptr(reg)            (*(volatile uint32_t *) (reg))

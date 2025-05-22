@@ -4,8 +4,11 @@
 
 #include <stdint.h>
 
+#ifndef F_CPU
+    #define F_CPU   (24000000UL)
+#endif
+
 #define nop()   __asm__ volatile ("nop")
-#define F_CPU   (24000000UL)
 #define delay_us(duration) 	delay_cycles((int32_t) ((F_CPU / 1000000) * duration))
 #define delay_ms(duration) 	for(uint32_t i = 0; i < duration; ++i){ delay_us(1000); }
 

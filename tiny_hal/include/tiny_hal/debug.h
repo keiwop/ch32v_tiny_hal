@@ -2,7 +2,7 @@
 #ifndef 	__DEBUG__
 #define 	__DEBUG__
 
-#include "io.h"
+#include <tiny_hal/io.h>
 
 // TODO: add flags
 

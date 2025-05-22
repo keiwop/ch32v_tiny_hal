@@ -1,5 +1,5 @@
 
-#include "init.h"
+#include <tiny_hal/init.h>
 
 
 void __init__(){
