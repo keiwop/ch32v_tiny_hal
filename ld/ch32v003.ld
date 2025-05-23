@@ -1,4 +1,9 @@
+
+/* If you are here, you can probably read this: */
+/* https://mcyoung.xyz/2021/06/01/linker-script/ */
+
 /* CH32V003 | 16K FLASH - 2K RAM */
+
 
 ENTRY(__start)
 

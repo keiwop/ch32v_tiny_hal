@@ -1,11 +1,12 @@
 
-PROGRAM := blink
-MCU     := ch32v003
+PROGRAM     := blink
+MCU         := ch32v003
+PROGRAMMER  := minichlink
 
-ASM     :=
-SRC     := programs/$(PROGRAM)/blink.c
+ASM         :=
+SRC         := programs/$(PROGRAM)/blink.c
 
-DEFINES := -DF_CPU=24000000UL
+DEFINES     := -DF_CPU=24000000UL
 
 
 all:

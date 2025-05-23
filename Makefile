@@ -1,6 +1,7 @@
 
 PROGRAM     ?= undefined
 MCU         ?= ch32v003
+PROGRAMMER  ?= minichlink
 
 # Toolchain
 TOOLCHAIN   := riscv64-elf-
@@ -16,7 +17,6 @@ CFLAGS      := -march=rv32ec -mabi=ilp32e -Wall -ffreestanding -MMD
 OPTIMIZE    := -Os -ffunction-sections -fdata-sections -msmall-data-limit=8
 ASFLAGS     := -x assembler-with-cpp
 LDFLAGS     := -nostartfiles -Tld/$(MCU).ld -Wl,-gc-sections,--print-gc-sections -Wl,--relax -Wl,--relax-gp
-# LDFLAGS     := -nostartfiles -Tld/$(MCU).ld -Wl,--relax -Wl,--relax-gp
 
 INCLUDES    ?= -Itiny_hal/include
 DEFINES 	?= 
@@ -64,6 +64,22 @@ $(ELF): $(OBJ)
 $(BIN): $(ELF)
 	$(OBJCOPY) -O binary $(ELF) $(BIN)
 
+
+flash: $(ELF)
+	@echo -e "\n\nFlashing $(MCU) | Programmer: $(PROGRAMMER) | Binary: $(BIN)"
+	@$(SIZE) -A $<
+ifeq ($(PROGRAMMER), minichlink)
+	minichlink -i -b -w $< flash
+else
+	$(error Programmer not supported: $(PROGRAMMER))
+endif
+
+
+# https://github.com/naegelyd/til/blob/master/misc/check-if-directory-exists-in-makefile.md
 clean:
 	$(info Cleaning build directory: $(BUILD))
-	rm -fr $(BUILD)
+ifneq ("$(wildcard $(BUILD))", "")
+	find $(BUILD)/* ! -name "*.bin" ! -name "*.elf" -delete
+else
+	$(error Build directory not defined)
+endif
