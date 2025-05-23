@@ -11,6 +11,7 @@ LD          := $(TOOLCHAIN)ld
 OBJCOPY     := $(TOOLCHAIN)objcopy
 OBJDUMP     := $(TOOLCHAIN)objdump
 SIZE        := $(TOOLCHAIN)size
+READELF     := $(TOOLCHAIN)readelf
 
 # Flags
 CFLAGS      := -march=rv32ec -mabi=ilp32e -Wall -ffreestanding -MMD
@@ -65,11 +66,11 @@ $(BIN): $(ELF)
 	$(OBJCOPY) -O binary $(ELF) $(BIN)
 
 
-flash: $(ELF)
+flash: $(BIN)
 	@echo -e "\n\nFlashing $(MCU) | Programmer: $(PROGRAMMER) | Binary: $(BIN)"
-	@$(SIZE) -A $<
+	@$(SIZE) -A $(ELF)
 ifeq ($(PROGRAMMER), minichlink)
-	minichlink -i -b -w $< flash
+	minichlink -i -w $< flash -b
 else
 	$(error Programmer not supported: $(PROGRAMMER))
 endif
@@ -83,3 +84,9 @@ ifneq ("$(wildcard $(BUILD))", "")
 else
 	$(error Build directory not defined)
 endif
+
+
+info: $(ELF)
+	$(SIZE) -A $<
+	$(OBJDUMP) -h $<
+	$(READELF) -Ws $<
