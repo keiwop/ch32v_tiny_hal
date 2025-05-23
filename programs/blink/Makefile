@@ -2,15 +2,19 @@
 PROGRAM     := blink
 MCU         := ch32v003
 PROGRAMMER  := minichlink
+BOOT        := init
+
 
 ASM         :=
-SRC         := programs/$(PROGRAM)/blink.c
+SRC         := blink.c
 
 DEFINES     := -DF_CPU=24000000UL
 
 
-all:
-	$(MAKE) -C ../.. $@ PROGRAM="$(PROGRAM)" MCU="$(MCU)" PROG_ASM="$(ASM)" PROG_SRC="$(SRC)" DEFINES="$(DEFINES)"
+PROG_PATH   := $(realpath .)
+.DEFAULT_GOAL := all
 
 %:
-	$(MAKE) -C ../.. $@ PROGRAM="$(PROGRAM)" MCU="$(MCU)" PROG_ASM="$(ASM)" PROG_SRC="$(SRC)" DEFINES="$(DEFINES)"
+	$(MAKE) -C ../.. $@ \
+        PROGRAM="$(PROGRAM)" MCU="$(MCU)" BOOT="$(BOOT)" PROGRAMMER="$(PROGRAMMER)" \
+        PROG_PATH="$(PROG_PATH)" PROG_ASM="$(ASM)" PROG_SRC="$(SRC)" DEFINES="$(DEFINES)"

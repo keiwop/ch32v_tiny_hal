@@ -30,7 +30,7 @@ _bss_loop:
 _init:      /* Init peripherals from C */
     call __init__
 
-_main:      /* Start main loop from C*/   
+_main:      /* Start main loop from C */
     call main
 
 _panic:     /* Panic (return from main loop): infinite loop */

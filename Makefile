@@ -1,8 +1,10 @@
 
-PROGRAM     ?= undefined
+# Target
+PROGRAM     ?= blink
 MCU         ?= ch32v003
 BOOT        ?= init
 PROGRAMMER  ?= minichlink
+PROG_PATH   ?= programs/blink
 
 # Toolchain
 TOOLCHAIN   := riscv64-elf-
@@ -26,20 +28,26 @@ DEFINES 	?=
 BUILD       ?= build
 
 
-ASM := $(PROG_ASM) \
+PROG_REL := $(shell realpath --relative-to $(realpath .) $(PROG_PATH))
+
+ASM := $(foreach prog, $(PROG_ASM), $(PROG_REL)/$(prog))
+ASM += \
     boot/$(MCU)_$(BOOT).s
 
-SRC += $(PROG_SRC) \
+SRC := $(foreach prog, $(PROG_SRC), $(PROG_REL)/$(prog))
+SRC += \
     tiny_hal/src/debug.c \
     tiny_hal/src/init.c
-
 
 C_OBJ := $(patsubst %.c,$(BUILD)/%.o,$(SRC))
 S_OBJ := $(patsubst %.s,$(BUILD)/%.o,$(ASM))
 OBJ := $(C_OBJ) $(S_OBJ)
+
+$(info )
 $(info ASM = $(ASM))
 $(info SRC = $(SRC))
 $(info OBJ = $(OBJ))
+$(info )
 
 DEPFILES := $(C_OBJ:.o=.d)
 -include $(DEPFILES)
@@ -77,10 +85,9 @@ else
 endif
 
 
-# https://github.com/naegelyd/til/blob/master/misc/check-if-directory-exists-in-makefile.md
 clean:
 	$(info Cleaning build directory: $(BUILD))
-ifneq ("$(wildcard $(BUILD))", "")
+ifneq ($(realpath $(BUILD)), )
 	find $(BUILD)/* ! -name "*.bin" ! -name "*.elf" -delete
 else
 	$(error Build directory not defined)
