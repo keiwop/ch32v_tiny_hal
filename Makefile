@@ -1,6 +1,7 @@
 
 PROGRAM     ?= undefined
 MCU         ?= ch32v003
+BOOT        ?= init
 PROGRAMMER  ?= minichlink
 
 # Toolchain
@@ -26,7 +27,7 @@ BUILD       ?= build
 
 
 ASM := $(PROG_ASM) \
-    boot/$(MCU)_init.s
+    boot/$(MCU)_$(BOOT).s
 
 SRC += $(PROG_SRC) \
     tiny_hal/src/debug.c \

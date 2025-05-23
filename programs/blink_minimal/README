@@ -1,0 +1,10 @@
+  
+# Minimal blink example  
+  
+section   size   addr  
+.init      2      0  
+.text     46      4  
+Total     48  
+  
+Compiled size is 48 bytes.  
+It costs 8 bytes to set a stack pointer, so we'll do without it.  
