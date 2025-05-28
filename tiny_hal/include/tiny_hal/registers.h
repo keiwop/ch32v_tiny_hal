@@ -22,6 +22,14 @@
 #define MCO             (24)    // 3 bits
 #define HPRE            (4)     // 4 bits
 
+// APB1PRSTR
+#define RCC_I2C1RST     (21)
+#define RCC_TIM2RST     (0)
+
+// APB2PRSTR
+#define RCC_SPI1RST     (12)
+#define RCC_TIM1RST     (11)
+
 // AHBPCENR
 #define SRAMEN          (2)
 #define DMA1EN          (0)
@@ -36,9 +44,9 @@
 #define IOPAEN          (2)
 #define AFIOEN          (0)
 
-// APB2PCENR
+// APB1PCENR
 #define PWREN           (28)
-#define I2C1EN          (21)
+#define RCC_I2C1EN      (21)
 #define WWDGEN          (11)
 #define TIM2EN          (0)
 
@@ -117,6 +125,60 @@
 #define USART1_RM_L     (2)
 #define I2C1_RM_L       (1)
 #define SPI1_RM         (0)
+
+
+///////////////////////////////////////////////////////////////////////////////
+// I2C ////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+#define I2C1_BASE       (0x40005400)
+#define I2C1_CTRLR1     (I2C1_BASE + 0x0000) // I2C control register 1
+#define I2C1_CTRLR2     (I2C1_BASE + 0x0004) // I2C control register 2
+#define I2C1_OADDR1     (I2C1_BASE + 0x0008) // I2C address register 1
+#define I2C1_OADDR2     (I2C1_BASE + 0x000C) // I2C address register 2
+#define I2C1_DATAR      (I2C1_BASE + 0x0010) // I2C data register
+#define I2C1_STAR1      (I2C1_BASE + 0x0014) // I2C status register 1
+#define I2C1_STAR2      (I2C1_BASE + 0x0018) // I2C status register 2
+#define I2C1_CKCFGR     (I2C1_BASE + 0x001C) // I2C clock register
+
+// I2C1_CTRLR1
+#define I2C1_SWRST      (15)
+// #define I2C1_PEC        (12)
+// #define I2C1_POS        (11)
+#define I2C1_ACK        (10)
+#define I2C1_STOP       (9)
+#define I2C1_START      (8)
+// #define I2C1_NOSTRETCH  (7)
+// #define I2C1_ENGC       (6)
+// #define I2C1_ENPEC      (5)
+#define I2C1_PE         (0)
+
+// I2C1_CTRLR2
+#define I2C1_FREQ       (0) // 6 bits
+
+// I2C1_DATAR
+#define I2C1_DR         (0) // 8 bits
+
+// I2C1_STAR1
+#define I2C1_AF         (10)
+#define I2C1_ARLO       (9)
+#define I2C1_BERR       (8)
+#define I2C1_TXE        (7)
+#define I2C1_RXNE       (6)
+#define I2C1_STOPF      (4)
+#define I2C1_BTF        (2)
+#define I2C1_ADDR       (1)
+#define I2C1_SB         (0)
+
+// I2C1_STAR2
+#define I2C1_TRA        (2)
+#define I2C1_BUSY       (1)
+#define I2C1_MSL        (0)
+
+// I2C1_CKCFGR
+#define I2C1_FS         (15)
+#define I2C1_DUTY       (14)
+#define I2C1_CCR        (0) // 12 bits
 
 
 #endif // __REGISTERS__

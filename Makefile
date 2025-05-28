@@ -7,7 +7,7 @@ PROGRAMMER  ?= minichlink
 PROG_PATH   ?= programs/blink
 
 # Toolchain
-TOOLCHAIN   := riscv64-elf-
+TOOLCHAIN   := riscv32-unknown-elf-
 CC 			:= $(TOOLCHAIN)gcc
 AS          := $(TOOLCHAIN)as
 LD          := $(TOOLCHAIN)ld
@@ -17,10 +17,10 @@ SIZE        := $(TOOLCHAIN)size
 READELF     := $(TOOLCHAIN)readelf
 
 # Flags
-CFLAGS      := -march=rv32ec -mabi=ilp32e -Wall -ffreestanding -MMD
+CFLAGS      := -march=rv32ec -mabi=ilp32e -misa-spec=2.2 -Wall -ffreestanding -MMD
 OPTIMIZE    := -Os -ffunction-sections -fdata-sections -msmall-data-limit=8
 ASFLAGS     := -x assembler-with-cpp
-LDFLAGS     := -nostartfiles -Tld/$(MCU).ld -Wl,-gc-sections,--print-gc-sections -Wl,--relax -Wl,--relax-gp
+LDFLAGS     := -nostartfiles -Tld/$(MCU).ld -Wl,-gc-sections,--print-gc-sections -Wl,--relax,--relax-gp
 
 INCLUDES    ?= -Itiny_hal/include
 DEFINES 	?= 
@@ -37,10 +37,12 @@ ASM += \
 SRC := $(foreach prog, $(PROG_SRC), $(PROG_REL)/$(prog))
 SRC += \
     tiny_hal/src/debug.c \
-    tiny_hal/src/init.c
+    tiny_hal/src/init.c \
+    tiny_hal/src/i2c.c \
+    tiny_hal/src/hw/1602_i2c.c
 
-C_OBJ := $(patsubst %.c,$(BUILD)/%.o,$(SRC))
-S_OBJ := $(patsubst %.s,$(BUILD)/%.o,$(ASM))
+C_OBJ := $(patsubst %.c, $(BUILD)/%.o, $(SRC))
+S_OBJ := $(patsubst %.s, $(BUILD)/%.o, $(ASM))
 OBJ := $(C_OBJ) $(S_OBJ)
 
 $(info )
@@ -95,6 +97,7 @@ endif
 
 
 info: $(ELF)
-	$(SIZE) -A $<
+	$(OBJDUMP) -d $<
 	$(OBJDUMP) -h $<
 	$(READELF) -Ws $<
+	$(SIZE) -A $<
