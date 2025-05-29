@@ -19,7 +19,7 @@
 #define RCC_RSTSCKR     (RCC_BASE + 0x24)   // Control/Status register
 
 // CFGR0
-#define MCO             (24)    // 3 bits
+#define RCC_MCO         (24)    // 3 bits
 #define HPRE            (4)     // 4 bits
 
 // APB1PRSTR

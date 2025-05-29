@@ -2,11 +2,19 @@
 #include <tiny_hal/debug.h>
 
 
+// Global variable used by logging functions
+#if LOG_LEVEL > 0
+	char log_buf[LOG_BUF_SIZE];
+#endif
+
+
+// Exposes system clocks to the MCO pin (PC4 on ch32v003)
+// Pin should be push-pull multiplexed output
 void mco_enable(){
-    gpio_clear_cfg(MCO_PIN);
-    gpio_out_mpp_50MHz(MCO_PIN);
-    reg_ptr(RCC_CFGR0) &= ~(0b111 << MCO);
-    reg_ptr(RCC_CFGR0) |= (0b100 << MCO);
+    gpio_clear_cfg(PIN_MCO);
+    gpio_out_mpp_50MHz(PIN_MCO);
+    reg_ptr(RCC_CFGR0) &= ~(0b111 << RCC_MCO);
+    reg_ptr(RCC_CFGR0) |= (0b100 << RCC_MCO);
 }
 
 

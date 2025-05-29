@@ -12,16 +12,14 @@
     #define I2C_ADDR_1602   (0b0100111)
 #endif
 
-#define BIT_RS 	    (0b0001)
-#define BIT_RW 	    (0b0010)
-#define BIT_EN      (0b0100)
-#define BIT_BL      (0b1000)
+#define LCD16_RS    (0) // Register Select (0 for sending cmd, 1 for writing char to screen)
+#define LCD16_RW    (1) // Read / Write (never reading from target so set as 0)
+#define LCD16_EN    (2) // Enable (set high after sending address to target, then low when sending i2c stop condition)
+#define LCD16_BL    (3) // Backlight On / Off
 
-#define CHAR_HEIGHT (8)
-#define CHAR_WIDTH  (5)
+#define LCD16_CHAR_WIDTH (5)
 
 
-#ifdef ENABLE_1602_I2C
 
 #ifdef ENABLE_1602_CUSTOM_CHAR
     extern const uint8_t char_happy[8];
@@ -42,30 +40,30 @@
 #endif
 
 
+
 #ifdef ENABLE_PRINTF
-	#define lcd_printf(...) 	sprintf(printf_buf, __VA_ARGS__); lcd_print(printf_buf)
+    #define lcd16_printf(...)     sprintf(printf_buf, __VA_ARGS__); lcd16_print(printf_buf)
 #endif
 
-#endif // ENABLE_1602_I2C
 
-extern uint8_t lcd_rs;
-extern uint8_t lcd_rw;
-extern uint8_t lcd_bl;
+extern uint8_t lcd16_flags;
 
-void lcd_send_data(uint8_t nibble);
-void lcd_send_byte(uint8_t byte);
-void lcd_print_char(uint8_t byte);
-void lcd_print(char *str);
-void lcd_clear();
-void lcd_home();
-void lcd_set_entry();
-void lcd_scroll_left();
-void lcd_scroll_right();
-void lcd_move_cursor(uint8_t x, uint8_t y);
-void lcd_create_char(uint8_t id, const uint8_t *array);
-void lcd_print_progress(uint16_t current, uint16_t start, uint16_t stop, uint8_t width);
-void lcd_init();
 
+void lcd16_send_data_i2c(uint8_t nibble);
+void lcd16_send_data(uint8_t nibble);
+void lcd16_send_byte(uint8_t byte);
+void lcd16_print_char(uint8_t byte);
+void lcd16_print(char *str);
+void lcd16_set_backlight(uint8_t turn_on);
+void lcd16_clear();
+void lcd16_home();
+void lcd16_set_entry();
+void lcd16_scroll_left();
+void lcd16_scroll_right();
+void lcd16_move_cursor(uint8_t x, uint8_t y);
+void lcd16_create_char(uint8_t id, const uint8_t *array);
+void lcd16_print_progress(uint16_t current, uint16_t start, uint16_t stop, uint8_t width);
+void lcd16_init();
 
 
 #endif // __1602_I2C__

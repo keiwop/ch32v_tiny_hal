@@ -16,8 +16,8 @@ OBJDUMP     := $(TOOLCHAIN)objdump
 SIZE        := $(TOOLCHAIN)size
 READELF     := $(TOOLCHAIN)readelf
 
-# Flags
-CFLAGS      := -march=rv32ec -mabi=ilp32e -misa-spec=2.2 -Wall -ffreestanding -MMD
+# Flags overview in README
+CFLAGS      := -march=rv32ec_zicsr -mabi=ilp32e -Wall -ffreestanding -MMD --specs=nano.specs
 OPTIMIZE    := -Os -ffunction-sections -fdata-sections -msmall-data-limit=8
 ASFLAGS     := -x assembler-with-cpp
 LDFLAGS     := -nostartfiles -Tld/$(MCU).ld -Wl,-gc-sections,--print-gc-sections -Wl,--relax,--relax-gp

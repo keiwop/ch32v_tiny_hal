@@ -1,6 +1,12 @@
 
 #include <tiny_hal/init.h>
 
+// Global variable used by sprintf in various places
+#ifdef ENABLE_PRINTF
+	char printf_buf[PRINTF_BUF_SIZE];
+#endif
+
+
 // Called before main from boot/$(MCU)_init.s
 void __init__(){
     // Disable HB clock prescaler
@@ -17,8 +23,8 @@ void __init__(){
         i2c_enable();
     #endif
     
-    #ifdef ENABLE_1602_I2C
-		lcd_init();
+    #if defined(ENABLE_1602_I2C) || defined(ENABLE_1602)
+		lcd16_init();
 	#endif
 
     #ifdef ENABLE_MCO
