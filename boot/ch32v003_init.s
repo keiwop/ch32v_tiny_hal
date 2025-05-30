@@ -1,3 +1,6 @@
+/* Copyright (C): 2025 - keiwop */
+/* SPDX-License-Identifier: GPL-3.0-or-later */
+
 .section .init
 
 _sp:        /* Load stack pointer */

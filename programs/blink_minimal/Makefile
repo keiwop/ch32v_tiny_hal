@@ -1,3 +1,5 @@
+# Copyright (C): 2025 - keiwop
+# SPDX-License-Identifier: GPL-3.0-or-later
 
 PROGRAM     := blink_minimal
 MCU         := ch32v003

@@ -1,3 +1,5 @@
+// Copyright (C): 2025 - keiwop
+// SPDX-License-Identifier: GPL-3.0-or-later
 
 #include <tiny_hal.h>
 

@@ -1,3 +1,5 @@
+/* Copyright (C): 2025 - keiwop */
+/* SPDX-License-Identifier: GPL-3.0-or-later */
 
 /* If you are here, you can probably read this: */
 /* https://mcyoung.xyz/2021/06/01/linker-script/ */

@@ -1,3 +1,5 @@
+// Copyright (C): 2025 - keiwop
+// SPDX-License-Identifier: GPL-3.0-or-later
 
 #ifndef     __1602_I2C__
 #define     __1602_I2C__
