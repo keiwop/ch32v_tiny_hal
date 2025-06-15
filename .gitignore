@@ -3,3 +3,4 @@
 *.o
 bkp/
 build/
+.direnv/

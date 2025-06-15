@@ -10,7 +10,7 @@ PROGRAMMER  ?= minichlink
 PROG_PATH   ?= programs/blink
 
 # Toolchain
-TOOLCHAIN   := riscv32-unknown-elf-
+TOOLCHAIN   := riscv32-none-elf-
 CC 			:= $(TOOLCHAIN)gcc
 AS          := $(TOOLCHAIN)as
 LD          := $(TOOLCHAIN)ld
