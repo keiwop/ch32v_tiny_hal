@@ -31,6 +31,7 @@
 // APB2PRSTR
 #define RCC_SPI1RST     (12)
 #define RCC_TIM1RST     (11)
+#define RCC_USART1RST   (14)
 
 // AHBPCENR
 #define SRAMEN          (2)
@@ -181,6 +182,45 @@
 #define I2C1_FS         (15)
 #define I2C1_DUTY       (14)
 #define I2C1_CCR        (0) // 12 bits
+
+
+///////////////////////////////////////////////////////////////////////////////
+// UART ///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+#define USART1_BASE     (0x40013800)
+#define USART1_STATR    (USART1_BASE + 0x0000) // USART status register
+#define USART1_DATAR    (USART1_BASE + 0x0004) // USART data register
+#define USART1_BRR      (USART1_BASE + 0x0008) // USART baud rate register
+#define USART1_CTRLR1   (USART1_BASE + 0x000C) // USART control register 1
+#define USART1_CTRLR2   (USART1_BASE + 0x0010) // USART control register 2
+#define USART1_CTRLR3   (USART1_BASE + 0x0014) // USART control register 3
+#define USART1_GPR      (USART1_BASE + 0x0018) // USART protection time and prescaler register
+
+// USART1_STATR
+// #define USART1_CTS      (9)
+// #define USART1_LBD      (8)
+#define USART1_TXE      (7)
+#define USART1_TC       (6)
+#define USART1_RXNE     (5)
+// #define USART1_IDLE     (4)
+#define USART1_ORE      (3)
+// #define USART1_NE       (2)
+#define USART1_FE       (1)
+#define USART1_PE       (0)
+
+// USART1_DATAR
+#define USART1_DR       (0) // 9 bits
+
+// USART1_BRR
+#define USART1_DIV_M    (4) // 12 bits
+#define USART1_DIV_F    (0) // 4 bits
+
+// USART1_CTRLR1
+#define USART1_UE       (13)
+#define USART1_PCE      (10)
+#define USART1_TE       (3)
+#define USART1_RE       (2)
 
 
 #endif // __REGISTERS__

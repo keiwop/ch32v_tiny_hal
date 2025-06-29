@@ -6,9 +6,8 @@
 
 #include <stdint.h>
 #include <tiny_hal/registers.h>
-#include <tiny_hal/macro.h>
-#include <tiny_hal/delay.h>
-#include <tiny_hal/debug.h>
+// #include <tiny_hal/macro.h>
+// #include <tiny_hal/debug.h>
 
 
 #define reg_ptr(reg)            (*(volatile uint32_t *) (reg))
@@ -47,6 +46,7 @@
 #define pin_toggle(pin)         (gpio_ptr(GPIO_OUTDR, pin) ^= 1 << (pin % 8))
 
 #define pin_output(pin)         gpio_clear_cfg(pin); gpio_out_pp_10MHz(pin)
+#define pin_output_mpp(pin)     gpio_clear_cfg(pin); gpio_out_mpp_50MHz(pin)
 #define pin_output_od(pin)      gpio_clear_cfg(pin); gpio_out_od_50MHz(pin)
 #define pin_output_mod(pin)     gpio_clear_cfg(pin); gpio_out_mod_50MHz(pin)
 #define pin_input(pin)          gpio_clear_cfg(pin); gpio_in_pp(pin)

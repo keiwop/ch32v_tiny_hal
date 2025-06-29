@@ -11,7 +11,11 @@
 // TODO: add flags
 
 #define PIN_MCO             (PC4)
-#define PIN_LED_BOARD       (PC3)
+
+#ifndef PIN_LED_BOARD
+    #define PIN_LED_BOARD   (PC3)
+#endif
+
 #define DBG_BLINK_DELAY     (300)
 #define lh()                pin_set(PIN_LED_BOARD)
 #define ll()                pin_clear(PIN_LED_BOARD)
@@ -29,9 +33,12 @@
 
 #if LOG_LEVEL > 0
     #include <stdio.h>
-
-    // #include <tinylib/uart.h>
-    // #define log_s(lvl, ...)     if(LOG_LEVEL >= lvl){ sprintf(log_buf, __VA_ARGS__); uart_print(log_buf); }
+    #ifdef ENABLE_UART
+        #include <tiny_hal/uart.h>
+        #define log_s(lvl, ...) if(LOG_LEVEL >= lvl){ sprintf(log_buf, __VA_ARGS__); uart_print(log_buf); }
+    #else
+        #define log_s(...)      nop()
+    #endif
 
     #if defined(ENABLE_1602_I2C) || defined(ENABLE_1602)
         #include <tiny_hal/hw/1602_i2c.h>

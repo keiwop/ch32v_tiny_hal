@@ -11,6 +11,7 @@
 #include <tiny_hal/macro.h>
 #include <tiny_hal/debug.h>
 #include <tiny_hal/delay.h>
+#include <tiny_hal/uart.h>
 #include <tiny_hal/i2c.h>
 #include <tiny_hal/init.h>
 

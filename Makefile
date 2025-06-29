@@ -39,8 +39,9 @@ ASM += \
 
 SRC := $(foreach prog, $(PROG_SRC), $(PROG_REL)/$(prog))
 SRC += \
-    tiny_hal/src/debug.c \
     tiny_hal/src/init.c \
+    tiny_hal/src/debug.c \
+    tiny_hal/src/uart.c \
     tiny_hal/src/i2c.c \
     tiny_hal/src/hw/1602_i2c.c
 

@@ -21,10 +21,14 @@ void __init__(){
     sbi(RCC_APB2PCENR, IOPDEN);
     sbi(RCC_APB2PCENR, AFIOEN);
 
+    #ifdef ENABLE_UART
+        uart_enable(UART_BAUDRATE);
+    #endif
+
     #ifdef ENABLE_I2C
         i2c_enable();
     #endif
-    
+
     #if defined(ENABLE_1602_I2C) || defined(ENABLE_1602)
 		lcd16_init();
 	#endif
