@@ -1,13 +1,13 @@
 // Copyright (C): 2025 - keiwop
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#ifndef 	__I2C__
-#define 	__I2C__
+#ifndef     __I2C__
+#define     __I2C__
 
-#include <tiny_hal/debug.h>
 #include <tiny_hal/registers.h>
 #include <tiny_hal/io.h>
 #include <tiny_hal/delay.h>
+#include <tiny_hal/debug.h>
 
 
 // I2C pins should be defined as multiplexed open drain output
@@ -19,7 +19,6 @@
 #endif
 
 
-#define I2C_TIMEOUT         (1000000)
 #define I2C_STATUS_GETCTRL  ((((1 << I2C1_BUSY) | (1 << I2C1_MSL)) << 16) | (1 << I2C1_SB)) // BUSY - MSL - SB
 #define I2C_STATUS_SENDADDR ((((1 << I2C1_TRA) | (1 << I2C1_BUSY) | (1 << I2C1_MSL)) << 16) | (1 << I2C1_TXE) | (1 << I2C1_ADDR)) // TRA - BUSY - MSL - TXE - ADDR
 #define I2C_STATUS_SENDBYTE ((((1 << I2C1_TRA) | (1 << I2C1_BUSY) | (1 << I2C1_MSL)) << 16) | (1 << I2C1_TXE) | (1 << I2C1_BTF)) // TRA - BUSY - MSL - TXE - BTF

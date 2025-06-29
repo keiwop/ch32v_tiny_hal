@@ -11,20 +11,9 @@ static inline uint8_t i2c_check_status(uint32_t status_mask){
 
 
 static inline uint8_t wait_for_status(uint32_t status_mask){
-    uint32_t counter = I2C_TIMEOUT;
+    uint32_t counter = PROTO_TIMEOUT;
     while(counter-- > 0){
         if(i2c_check_status(status_mask)){
-            return 0;
-        }
-    }
-    return 1;
-}
-
-
-static inline uint8_t wait_for_bit(uint32_t reg, uint8_t bit, uint8_t value){
-    uint32_t counter = I2C_TIMEOUT;
-    while(counter-- > 0){
-        if(check_bit(reg, bit) >> bit == value){
             return 0;
         }
     }
@@ -86,7 +75,8 @@ i2c_t i2c_send_byte(uint8_t data, uint8_t start, uint8_t stop){
 
 i2c_t i2c_send_nbytes(uint8_t addr, uint8_t *data, uint8_t nbytes){
     i2c_send_byte(addr << 1, 1, 0);
-    uint8_t i, stop, ret;
+    uint8_t i, stop;
+    i2c_t ret;
     for(i = 0; i < nbytes; ++i){
         if(i == nbytes - 1){
             stop = 1;
@@ -95,7 +85,7 @@ i2c_t i2c_send_nbytes(uint8_t addr, uint8_t *data, uint8_t nbytes){
             return ret;
         }
     }
-    return ret;
+    return I2C_EOK;
 }
 
 // TODO
